@@ -39,7 +39,7 @@ class ProcessVideoView(APIView):
         serializer = VideoSerializer(data=request.data)
         if serializer.is_valid():
             video = serializer.save()
-            input_file = video.video_file_480p.path  # Pfad zur Videodatei
+            input_file = video.video_file_480p.path
             output_file = 'processed_' + video.video_file_480p.name
 
             # FFmpeg Videoverarbeitung
@@ -92,7 +92,6 @@ def video_detail(request, id):
         "category": video.category.name
     }
     return JsonResponse(video_data)
-
 
 def upload_video(request):
     if not request.user.is_superuser:

@@ -1,0 +1,15 @@
+asgiref==3.8.1
+certifi==2024.7.4
+click==8.1.7
+Django==5.0.7
+django-cors-headers==4.4.0
+django-redis==5.4.0
+django-rq==2.10.2
+djangorestframework==3.15.2
+ffmpeg-python==0.2.0
+future==1.0.0
+redis==5.0.7
+rq==1.16.2
+setuptools==72.1.0
+sqlparse==0.5.1
+wheel==0.43.0

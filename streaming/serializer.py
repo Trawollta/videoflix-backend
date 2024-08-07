@@ -15,7 +15,10 @@ class VideoSerializer(serializers.ModelSerializer):
         fields = ['id', 'title', 'description', 'cover_file', 'video_file_1080p', 'video_file_720p', 'video_file_480p', 'category', 'uploaded_at']
         
     
-    def get_video_file_url(self, obj):
+    def get_video_files(self, obj):
         request = self.context.get('request')
-        video_url = obj.video_file_480p.url if obj.video_file_480p else ''
-        return request.build_absolute_uri(video_url) if request else video_url
+        return {
+            '480p': request.build_absolute_uri(obj.video_file_480p.url) if obj.video_file_480p else '',
+            '720p': request.build_absolute_uri(obj.video_file_720p.url) if obj.video_file_720p else '',
+            '1080p': request.build_absolute_uri(obj.video_file_1080p.url) if obj.video_file_1080p else '',
+        }
