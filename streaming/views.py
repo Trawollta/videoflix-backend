@@ -13,6 +13,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
 from django.core.cache import cache
 from django.conf import settings
+from rest_framework.response import Response
 
 CACHE_TTL = getattr(settings, 'CACHE_TTL', 300)
 
@@ -39,19 +40,24 @@ class ProcessVideoView(APIView):
         serializer = VideoSerializer(data=request.data)
         if serializer.is_valid():
             video = serializer.save()
-            input_file = video.video_file_480p.path
-            output_file = 'processed_' + video.video_file_480p.name
+            input_file = video.video_file_480p.path  # Beispielhafte Eingabedatei
+
+            output_file_480p = os.path.join(settings.MEDIA_ROOT, 'videos', f'{video.id}_480p.mp4')
+            output_file_720p = os.path.join(settings.MEDIA_ROOT, 'videos', f'{video.id}_720p.mp4')
+            output_file_1080p = os.path.join(settings.MEDIA_ROOT, 'videos', f'{video.id}_1080p.mp4')
 
             # FFmpeg Videoverarbeitung
-            stream = ffmpeg.input(input_file)
-            stream = ffmpeg.output(stream, output_file, vf='scale=640:360')
-            ffmpeg.run(stream)
+            ffmpeg.input(input_file).output(output_file_480p, vf='scale=640:360').run()
+            ffmpeg.input(input_file).output(output_file_720p, vf='scale=1280:720').run()
+            ffmpeg.input(input_file).output(output_file_1080p, vf='scale=1920:1080').run()
 
-            return JsonResponse({
-                'status': 'Video erfolgreich verarbeitet',
-                'processed_video_url': output_file
-            }, status=status.HTTP_201_CREATED)
-        return JsonResponse(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            video.video_file_480p = output_file_480p
+            video.video_file_720p = output_file_720p
+            video.video_file_1080p = output_file_1080p
+            video.save()
+
+            return Response({'status': 'Video erfolgreich verarbeitet'}, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 def grouped_videos(request):
     categories = Category.objects.all()
