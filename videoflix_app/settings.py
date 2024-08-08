@@ -122,12 +122,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # E-Mail-Konfiguration
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'w01f012a.kasserver.com'  # Ihr SMTP-Host
-EMAIL_PORT = 587  # Typischer Port für TLS
-EMAIL_USE_TLS = True  # Verwenden von TLS
-EMAIL_USE_SSL = False  # Nicht sowohl TLS als auch SSL verwenden
-EMAIL_HOST_USER = 'contact@jan-woll.de'  # Ihre tatsächliche E-Mail-Adresse
-EMAIL_HOST_PASSWORD = 'vuvkig-zAtdaj-2mynri'  # Ihr tatsächliches E-Mail-Passwort
-DEFAULT_FROM_EMAIL = 'contact@jan-woll.de'  # Ihre tatsächliche E-Mail-Adresse
+EMAIL_HOST = 'w01f012a.kasserver.com' 
+EMAIL_PORT = 587  
+EMAIL_USE_TLS = True 
+EMAIL_USE_SSL = False  
+EMAIL_HOST_USER = 'contact@jan-woll.de'  
+EMAIL_HOST_PASSWORD = 'vuvkig-zAtdaj-2mynri' 
+DEFAULT_FROM_EMAIL = 'contact@jan-woll.de' 
 DOMAIN = 'localhost:8000'
 DOMAIN_FRONTEND = 'http://localhost:4200'
