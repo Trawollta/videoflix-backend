@@ -8,13 +8,12 @@ class CategorySerializer(serializers.ModelSerializer):
 
 class VideoSerializer(serializers.ModelSerializer):
     category = CategorySerializer()
-    video_file_url = serializers.SerializerMethodField()
+    video_files = serializers.SerializerMethodField()
 
     class Meta:
         model = Video
-        fields = ['id', 'title', 'description', 'cover_file', 'video_file_1080p', 'video_file_720p', 'video_file_480p', 'category', 'uploaded_at']
+        fields = ['id', 'title', 'description', 'cover_file', 'video_file_1080p', 'video_file_720p', 'video_file_480p', 'category', 'uploaded_at', 'video_files']
         
-    
     def get_video_files(self, obj):
         request = self.context.get('request')
         return {

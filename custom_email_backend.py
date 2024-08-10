@@ -5,8 +5,8 @@ from django.core.mail.backends.smtp import EmailBackend
 class CustomEmailBackend(EmailBackend):
     def _get_ssl_context(self):
         ssl_context = ssl.create_default_context(cafile=certifi.where())
-        ssl_context.check_hostname = True  # Enable hostname checking
-        ssl_context.verify_mode = ssl.CERT_REQUIRED  # Require certificate verification
+        ssl_context.check_hostname = True
+        ssl_context.verify_mode = ssl.CERT_REQUIRED
         return ssl_context
 
     def open(self):

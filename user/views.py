@@ -12,14 +12,30 @@ from django.core.mail import send_mail
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from django.contrib.auth.forms import SetPasswordForm
+from django.urls import reverse
 
 class RegisterView(APIView):
     def post(self, request, *args, **kwargs):
         serializer = RegisterSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            user = serializer.save()
+
+            uid = urlsafe_base64_encode(force_bytes(user.pk))
+            token = default_token_generator.make_token(user)
+            confirm_url = f"{settings.DOMAIN_FRONTEND}/confirm-email/{uid}/{token}"
+            
+            send_mail(
+                'Bestätigen Sie Ihre E-Mail-Adresse',
+                f'Bitte klicken Sie auf den folgenden Link, um Ihre E-Mail-Adresse zu bestätigen: {confirm_url}',
+                settings.DEFAULT_FROM_EMAIL,
+                [user.email],
+                fail_silently=False,
+            )
+            return Response({'message': 'Eine Bestätigungs-E-Mail wurde gesendet. Bitte überprüfen Sie Ihr Postfach.'}, status=status.HTTP_201_CREATED)
+        
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# Die anderen Klassen bleiben unverändert
 
 class LoginView(APIView):
     def post(self, request, *args, **kwargs):
@@ -31,12 +47,27 @@ class LoginView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class ConfirmEmailView(APIView):
-    def get(self, request, token, *args, **kwargs):
-        user = get_object_or_404(CustomUser, confirmation_token=token)
-        user.is_active = True
-        user.confirmation_token = None
-        user.save()
-        return Response({'message': 'E-Mail-Adresse erfolgreich bestätigt'}, status=status.HTTP_200_OK)
+    def get(self, request, uidb64, token, *args, **kwargs):
+        try:
+            uid = force_str(urlsafe_base64_decode(uidb64))
+            print(uid)
+            user = CustomUser.objects.get(pk=uid)
+            print(f"Benutzer gefunden: {user.email}")  # Debugging-Ausgabe
+        except (TypeError, ValueError, OverflowError, CustomUser.DoesNotExist):
+            user = None
+
+        if user is not None and default_token_generator.check_token(user, token):
+            print("Token validiert")  # Debugging-Ausgabe
+            if not user.is_active:  # Überprüfen, ob der Benutzer bereits aktiviert ist
+                user.is_active = True  # Konto aktivieren
+                user.save()
+                print("Benutzerkonto aktiviert")  # Debugging-Ausgabe
+                return Response({'message': 'E-Mail-Adresse erfolgreich bestätigt und Konto aktiviert.'}, status=status.HTTP_200_OK)
+            return Response({'message': 'Benutzer ist bereits aktiviert.'}, status=status.HTTP_200_OK)
+        else:
+            print("Ungültiger Token oder Benutzer nicht gefunden")  # Debugging-Ausgabe
+            return Response({'error': 'Ungültiger oder abgelaufener Token.'}, status=status.HTTP_400_BAD_REQUEST)
+
 
 class PasswordResetView(APIView):
     def post(self, request):
@@ -51,7 +82,7 @@ class PasswordResetView(APIView):
 
         token = default_token_generator.make_token(user)
         uid = urlsafe_base64_encode(force_bytes(user.pk))
-        reset_url = f"{settings.DOMAIN}/reset-password-confirm/{uid}/{token}"
+        reset_url = f"{settings.DOMAIN_FRONTEND}/reset-password-confirm/{uid}/{token}"
         send_mail(
             'Passwort zurücksetzen',
             f'Klicken Sie auf den folgenden Link, um Ihr Passwort zurückzusetzen: {reset_url}',

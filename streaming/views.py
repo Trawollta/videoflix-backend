@@ -85,18 +85,22 @@ def grouped_videos(request):
     return JsonResponse(result, safe=False)
 
 def video_detail(request, id):
-    video = get_object_or_404(Video, id=id)
-    video_data = {
-        "id": video.id,
-        "title": video.title,
-        "description": video.description,
-        "video_files": {
-            "480p": request.build_absolute_uri(video.video_file_480p.url if video.video_file_480p else ''),
-            "720p": request.build_absolute_uri(video.video_file_720p.url if video.video_file_720p else ''),
-            "1080p": request.build_absolute_uri(video.video_file_1080p.url if video.video_file_1080p else '')
-        },
-        "category": video.category.name
-    }
+    cache_key = f'video_detail_{id}'
+    video_data = cache.get(cache_key)
+    if not video_data:
+        video = get_object_or_404(Video, id=id)
+        video_data = {
+            "id": video.id,
+            "title": video.title,
+            "description": video.description,
+            "video_files": {
+                "480p": request.build_absolute_uri(video.video_file_480p.url if video.video_file_480p else ''),
+                "720p": request.build_absolute_uri(video.video_file_720p.url if video.video_file_720p else ''),
+                "1080p": request.build_absolute_uri(video.video_file_1080p.url if video.video_file_1080p else '')
+            },
+            "category": video.category.name
+        }
+        cache.set(cache_key, video_data, CACHE_TTL)
     return JsonResponse(video_data)
 
 def upload_video(request):
