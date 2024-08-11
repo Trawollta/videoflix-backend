@@ -35,8 +35,6 @@ class RegisterView(APIView):
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# Die anderen Klassen bleiben unverändert
-
 class LoginView(APIView):
     def post(self, request, *args, **kwargs):
         serializer = LoginSerializer(data=request.data, context={'request': request})
@@ -52,20 +50,20 @@ class ConfirmEmailView(APIView):
             uid = force_str(urlsafe_base64_decode(uidb64))
             print(uid)
             user = CustomUser.objects.get(pk=uid)
-            print(f"Benutzer gefunden: {user.email}")  # Debugging-Ausgabe
+            print(f"Benutzer gefunden: {user.email}")  
         except (TypeError, ValueError, OverflowError, CustomUser.DoesNotExist):
             user = None
 
         if user is not None and default_token_generator.check_token(user, token):
-            print("Token validiert")  # Debugging-Ausgabe
-            if not user.is_active:  # Überprüfen, ob der Benutzer bereits aktiviert ist
-                user.is_active = True  # Konto aktivieren
+            print("Token validiert") 
+            if not user.is_active:  
+                user.is_active = True  
                 user.save()
-                print("Benutzerkonto aktiviert")  # Debugging-Ausgabe
+                print("Benutzerkonto aktiviert") 
                 return Response({'message': 'E-Mail-Adresse erfolgreich bestätigt und Konto aktiviert.'}, status=status.HTTP_200_OK)
             return Response({'message': 'Benutzer ist bereits aktiviert.'}, status=status.HTTP_200_OK)
         else:
-            print("Ungültiger Token oder Benutzer nicht gefunden")  # Debugging-Ausgabe
+            print("Ungültiger Token oder Benutzer nicht gefunden") 
             return Response({'error': 'Ungültiger oder abgelaufener Token.'}, status=status.HTTP_400_BAD_REQUEST)
 
 
