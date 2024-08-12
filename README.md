@@ -1,16 +1,23 @@
 ## Installation
+Kurze Beschreibung mit Hinweis auf Git Frontend
+
 
 1. Klone das Repository:
     ```sh
     git clone <https://github.com/Trawollta/videoflix-backend>
-    git clone <https://github.com/Trawollta/videoflix-frontend>
     cd videoflix
     ```
 
 2. Erstelle und aktiviere eine virtuelle Umgebung:
     ```sh
+    #Erstellen des virtuellen environments für MacOS/ Linux
     python -m venv env
-    source env/bin/activate 
+
+    #Aktivierung des virtuellen environments für Windows
+     source env/scripts/activate
+
+    #Aktivierung des virtuellen environments für MacOS/ Linux
+    source env/bin/activate
     ```
     
 

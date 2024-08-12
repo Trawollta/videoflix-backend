@@ -85,7 +85,7 @@ def grouped_videos(request):
     return JsonResponse(result, safe=False)
 
 def video_detail(request, id):
-    cache_key = f'video_detail_{id}'
+    cache_key = f'video_detail'
     video_data = cache.get(cache_key)
     if not video_data:
         video = get_object_or_404(Video, id=id)
