@@ -5,7 +5,7 @@ Kurze Beschreibung mit Hinweis auf Git Frontend
 1. Klone das Repository:
     ```sh
     git clone <https://github.com/Trawollta/videoflix-backend>
-    cd videoflix
+    cd videoflix_app
     ```
 
 2. Erstelle und aktiviere eine virtuelle Umgebung:
@@ -26,7 +26,8 @@ Kurze Beschreibung mit Hinweis auf Git Frontend
     pip install -r requirements.txt
     ```
 
-4. Erstelle eine `.env`-Datei im Verzeichnis `videoflix_app` und füge die notwendigen Umgebungsvariablen hinzu:
+4. Benenne die Datei `.env model` im Verzeichnis `videoflix_app in `.env` um.
+    Ändere die `.env` und füge deine Daten hinzu:
     ```env
     EMAIL_HOST=<dein-email-host>
     EMAIL_PORT=<dein-email-port>
