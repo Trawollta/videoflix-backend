@@ -11,7 +11,7 @@ Kurze Beschreibung mit Hinweis auf Git Frontend
 2. Erstelle und aktiviere eine virtuelle Umgebung:
     ```sh
     #Erstellen des virtuellen environments für MacOS/ Linux
-    python -m venv env
+    python3 -m venv env
 
     #Aktivierung des virtuellen environments für Windows
      source env/scripts/activate
