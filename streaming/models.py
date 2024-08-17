@@ -10,8 +10,8 @@ class Category(models.Model):
 class Video(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
-    cover_file = models.FileField(upload_to='covers', blank=True, null=True)
-    video_file_1080p = models.FileField(upload_to='videos', blank=True, null=True)
+    cover_file = models.FileField(upload_to='covers', default='covers/default.jpg')
+    video_file_1080p = models.FileField(upload_to='videos',default='videos/default.mp4', )
     video_file_720p = models.FileField(upload_to='videos', blank=True, null=True)
     video_file_480p = models.FileField(upload_to='videos', blank=True, null=True)
     genre = models.CharField(max_length=80, default=0)

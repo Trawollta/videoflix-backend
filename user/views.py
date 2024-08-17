@@ -16,6 +16,11 @@ from django.urls import reverse
 
 class RegisterView(APIView):
     def post(self, request, *args, **kwargs):
+        email = request.data.get('email')
+        
+        if CustomUser.objects.filter(email=email).exists():
+            return Response({'error': 'Diese E-Mail-Adresse ist bereits vergeben.'}, status=status.HTTP_400_BAD_REQUEST)
+        
         serializer = RegisterSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.save()
