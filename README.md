@@ -19,7 +19,6 @@ Kurze Beschreibung mit Hinweis auf Git Frontend
     #Aktivierung des virtuellen environments für MacOS/ Linux
     source env/bin/activate
     ```
-    
 
 3. Installiere die Abhängigkeiten:
     ```sh
