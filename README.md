@@ -49,6 +49,16 @@ Kurze Beschreibung mit Hinweis auf Git Frontend
     python manage.py runserver
     ```
 
+
+7. Starte den RQ Worker
+
+``Für Unix-basierte Systeme (Linux/MacOS)
+rqworker
+
+``Für Windows (mit gevent)
+rqworker --with-gevent
+
+
 ## Tests
 
 Um die Tests auszuführen, verwende den folgenden Befehl:
