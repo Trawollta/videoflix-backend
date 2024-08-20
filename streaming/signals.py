@@ -3,9 +3,7 @@ from .models import Video
 from django.db.models.signals import post_delete, post_save
 from django.dispatch import receiver
 import django_rq
-from django_rq import enqueue
 import os
-from functools import partial
 from .tasks import convertVideos
 
 
