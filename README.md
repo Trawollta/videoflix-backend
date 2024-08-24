@@ -14,7 +14,7 @@ Kurze Beschreibung mit Hinweis auf Git Frontend
     python3 -m venv env
 
     #Aktivierung des virtuellen environments für Windows
-     source env/scripts/activate
+    env/scripts/activate
 
     #Aktivierung des virtuellen environments für MacOS/ Linux
     source env/bin/activate

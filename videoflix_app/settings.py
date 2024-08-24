@@ -11,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv('SECRET_KEY', 'your-default-secret-key')
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(','), 'jan-woll.developerakademie.org'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -134,3 +134,8 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', 'your-default-email-passw
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'your-default-from-email')
 DOMAIN = os.getenv('DOMAIN', 'localhost:8000')
 DOMAIN_FRONTEND = os.getenv('DOMAIN_FRONTEND', 'http://localhost:4200')
+
+CSRF_TRUSTED_ORIGINS = [
+    # "https://85.215.196.7/",
+
+]
