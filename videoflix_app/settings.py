@@ -18,6 +18,11 @@ if ALLOWED_HOSTS:
 else:
     raise ValueError("Die Umgebungsvariable 'ALLOWED_HOSTS' ist nicht gesetzt.")
 
+CSRF_TRUSTED_ORIGINS = [
+    'http://jan-woll.developerakademie.org',
+]
+
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -62,7 +67,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ALLOWED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS', "http://localhost:4200").split(',') + ['https://jan-woll.developerakademie.org']
+CORS_ALLOWED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS').split(',')
 
 ROOT_URLCONF = 'videoflix_app.urls'
 
