@@ -127,7 +127,7 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-STATIC_URL = 'static/'
+STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/media/'
@@ -146,8 +146,3 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', 'your-default-email-passw
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'your-default-from-email')
 DOMAIN = os.getenv('DOMAIN', 'localhost:8000')
 DOMAIN_FRONTEND = os.getenv('DOMAIN_FRONTEND', 'http://localhost:4200')
-
-CSRF_TRUSTED_ORIGINS = [
-    # "https://85.215.196.7/",
-
-]
