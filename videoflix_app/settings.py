@@ -20,6 +20,7 @@ else:
 
 CSRF_TRUSTED_ORIGINS = [
     'http://jan-woll.developerakademie.org',
+    'http://videoflix.jan-woll.de',
 ]
 
 
