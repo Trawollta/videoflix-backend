@@ -68,7 +68,13 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-CORS_ALLOWED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS').split(',')
+CORS_ALLOWED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS')
+
+if CORS_ALLOWED_ORIGINS:
+    CORS_ALLOWED_ORIGINS = CORS_ALLOWED_ORIGINS.split(',')
+else:
+    raise ValueError("Die Umgebungsvariable 'CORS_ALLOWED_ORIGINS' ist nicht gesetzt.")
+
 
 ROOT_URLCONF = 'videoflix_app.urls'
 
