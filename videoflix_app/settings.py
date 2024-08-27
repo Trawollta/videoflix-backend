@@ -16,15 +16,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv('SECRET_KEY', 'your-default-secret-key')
 DEBUG = os.getenv('DEBUG', 'False') == 'True'
 
-# ALLOWED_HOSTS aus der Umgebungsvariable laden
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '').split(',')
-if not ALLOWED_HOSTS or ALLOWED_HOSTS == ['']:
-    raise ValueError("Die Umgebungsvariable 'ALLOWED_HOSTS' ist nicht gesetzt.")
 
-# CSRF Trusted Origins
-CSRF_TRUSTED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS', '').split(',')
-if not CSRF_TRUSTED_ORIGINS or CSRF_TRUSTED_ORIGINS == ['']:
-    raise ValueError("Die Umgebungsvariable 'CORS_ALLOWED_ORIGINS' ist nicht gesetzt.")
+ALLOWED_HOSTS= 'localhost,127.0.0.1','jan-woll.developerakademie.org','videoflix.jan-woll.de'
+CORS_ALLOWED_ORIGINS= 'http://localhost:4200','http://jan-woll.developerakademie.org','http://videoflix.jan-woll.de'
 
 # Installierte Apps
 INSTALLED_APPS = [
