@@ -26,7 +26,7 @@ ALLOWED_HOSTS = [
 
 # CORS-Einstellungen
 CORS_ALLOWED_ORIGINS = [
-    'https://localhost:4200',
+    # 'https://localhost:4200',
     'https://jan-woll.developerakademie.org',
     'https://videoflix.jan-woll.de'
 ]
@@ -179,4 +179,5 @@ CSRF_TRUSTED_ORIGINS = [
 'https://jan-woll.developerakademie.org',
 ]
 
-ACCESS_CONTROL_ALLOW_ORIGIN = 'https://videoflix.jan-woll.de'
+ACCESS_CONTROL_ALLOW_ORIGIN = 'https://videoflix.jan-woll.de',
+'https://jan-woll.developerakademie.org'
