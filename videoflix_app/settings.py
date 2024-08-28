@@ -178,3 +178,5 @@ CSRF_TRUSTED_ORIGINS = [
 'https://videoflix.jan-woll.de',
 'https://jan-woll.developerakademie.org',
 ]
+
+ACCESS_CONTROL_ALLOW_ORIGIN = 'https://videoflix.jan-woll.de'
