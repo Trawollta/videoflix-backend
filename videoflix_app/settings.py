@@ -31,8 +31,9 @@ CORS_ALLOWED_ORIGINS = [
     'https://videoflix.jan-woll.de'
 ]
 
-if not CORS_ALLOWED_ORIGINS:
-    raise ValueError("Die Umgebungsvariable 'CORS_ALLOWED_ORIGINS' ist nicht gesetzt.")
+CORS_ALLOW_CREDENTIALS = True
+
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Installierte Apps
 INSTALLED_APPS = [
@@ -59,8 +60,6 @@ RQ_QUEUES = {
         'DEFAULT_TIMEOUT': int(os.getenv('REDIS_DEFAULT_TIMEOUT', 360)),
     },
 }
-
-CORS_ALLOW_CREDENTIALS = True
 
 # Benutzerdefiniertes User Model
 AUTH_USER_MODEL = 'user.CustomUser'
@@ -179,6 +178,6 @@ CSRF_TRUSTED_ORIGINS = [
 'https://jan-woll.developerakademie.org',
 ]
 
-ACCESS_CONTROL_ALLOW_ORIGIN = 'https://videoflix.jan-woll.de','https://jan-woll.developerakademie.org'
-ACCES_CONTROL_ALLOW_HEADERS = 'Content-Type, Authorization'
-ACCES_CONTROL_METHODS = 'GET, POST, PUT, DELETE, OPTIONS'
+# ACCESS_CONTROL_ALLOW_ORIGIN = 'https://videoflix.jan-woll.de','https://jan-woll.developerakademie.org'
+# ACCES_CONTROL_ALLOW_HEADERS = 'Content-Type, Authorization'
+# ACCES_CONTROL_METHODS = 'GET, POST, PUT, DELETE, OPTIONS'
