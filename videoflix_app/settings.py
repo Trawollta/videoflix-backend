@@ -14,11 +14,25 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Sicherheitsrelevante Einstellungen
 SECRET_KEY = os.getenv('SECRET_KEY', 'your-default-secret-key')
-DEBUG = os.getenv('DEBUG', 'False') == 'True'
+DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
 
+# Hosts-Einstellungen
+ALLOWED_HOSTS = [
+    'localhost',
+    '127.0.0.1',
+    'jan-woll.developerakademie.org',
+    'videoflix.jan-woll.de'
+]
 
-ALLOWED_HOSTS= 'localhost,127.0.0.1','jan-woll.developerakademie.org','videoflix.jan-woll.de'
-CORS_ALLOWED_ORIGINS= 'http://localhost:4200','http://jan-woll.developerakademie.org','http://videoflix.jan-woll.de'
+# CORS-Einstellungen
+CORS_ALLOWED_ORIGINS = [
+    'https://localhost:4200',
+    'https://jan-woll.developerakademie.org',
+    'https://videoflix.jan-woll.de'
+]
+
+if not CORS_ALLOWED_ORIGINS:
+    raise ValueError("Die Umgebungsvariable 'CORS_ALLOWED_ORIGINS' ist nicht gesetzt.")
 
 # Installierte Apps
 INSTALLED_APPS = [
@@ -33,7 +47,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'corsheaders',
     'django_rq',
-    'user'
+    'user',
 ]
 
 # Django RQ Einstellungen für Redis
@@ -68,11 +82,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# CORS Einstellungen
-CORS_ALLOWED_ORIGINS = os.getenv('CORS_ALLOWED_ORIGINS', '').split(',')
-if not CORS_ALLOWED_ORIGINS or CORS_ALLOWED_ORIGINS == ['']:
-    raise ValueError("Die Umgebungsvariable 'CORS_ALLOWED_ORIGINS' ist nicht gesetzt.")
-
 # URL-Konfiguration
 ROOT_URLCONF = 'videoflix_app.urls'
 
@@ -99,9 +108,9 @@ CACHES = {
         "BACKEND": "django_redis.cache.RedisCache",
         "LOCATION": os.getenv('REDIS_CACHE_LOCATION', "redis://127.0.0.1:6379/1"),
         "OPTIONS": {
-            "CLIENT_CLASS": "django_redis.client.DefaultClient"
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
         },
-        "KEY_PREFIX": "videoflix"
+        "KEY_PREFIX": "videoflix",
     }
 }
 
@@ -160,4 +169,4 @@ EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER', 'your-default-email-user')
 EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD', 'your-default-email-password')
 DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL', 'your-default-from-email')
 DOMAIN = os.getenv('DOMAIN', 'localhost:8000')
-DOMAIN_FRONTEND = os.getenv('DOMAIN_FRONTEND', 'http://localhost:4200')
+DOMAIN_FRONTEND = os.getenv('DOMAIN_FRONTEND', 'https://localhost:4200')
