@@ -179,5 +179,6 @@ CSRF_TRUSTED_ORIGINS = [
 'https://jan-woll.developerakademie.org',
 ]
 
-ACCESS_CONTROL_ALLOW_ORIGIN = 'https://videoflix.jan-woll.de',
-'https://jan-woll.developerakademie.org'
+ACCESS_CONTROL_ALLOW_ORIGIN = 'https://videoflix.jan-woll.de','https://jan-woll.developerakademie.org'
+ACCES_CONTROL_ALLOW_HEADERS = 'Content-Type, Authorization'
+ACCES_CONTROL_METHODS = 'GET, POST, PUT, DELETE, OPTIONS'
