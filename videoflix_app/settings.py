@@ -60,6 +60,8 @@ RQ_QUEUES = {
     },
 }
 
+CORS_ALLOW_CREDENTIALS = True
+
 # Benutzerdefiniertes User Model
 AUTH_USER_MODEL = 'user.CustomUser'
 
