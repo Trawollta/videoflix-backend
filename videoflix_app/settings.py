@@ -155,7 +155,7 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Medien-Dateien
 MEDIA_URL = '/media/'
-MEDIA_ROOT = '/var/www/videoflix/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Standard AutoField
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
