@@ -11,7 +11,8 @@ from .tasks import convertVideos
 def auto_convert_file_on_save(sender, instance, created, **kwargs):
     if created:
         queue = django_rq.get_queue('default', autocommit=True)
-        queue.enqueue(convertVideos, instance)
+        queue.enqueue(convertVideos, instance, timeout=1200) 
+        
 
 
 @receiver(post_delete, sender=Video)
