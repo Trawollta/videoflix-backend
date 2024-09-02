@@ -1,0 +1,25 @@
+# Sicherheitsrelevante Einstellungen
+SECRET_KEY=django-insecure-52)&n94%ll307u!y0k00+g*0pletkmlb-=j#t5uvysogwp-!vq
+
+# Datenbank Einstellungen
+DB_NAME=db.sqlite3
+
+# Redis Einstellungen
+REDIS_HOST=localhost
+REDIS_PORT=6379
+REDIS_DB=0
+REDIS_DEFAULT_TIMEOUT=720
+REDIS_CACHE_LOCATION=redis://127.0.0.1:6379/1
+
+# E-Mail Einstellungen
+EMAIL_HOST= your email host
+EMAIL_PORT=587
+EMAIL_USE_TLS=True
+EMAIL_USE_SSL=False
+EMAIL_HOST_USER= your email address
+EMAIL_HOST_PASSWORD= your email password
+DEFAULT_FROM_EMAIL= your email address
+
+# Domain-Einstellungen
+DOMAIN=localhost:8000
+DOMAIN_FRONTEND=http://localhost:3000
