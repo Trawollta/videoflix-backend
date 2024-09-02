@@ -107,7 +107,8 @@ class VideoSignalTests(TestCase):
         )
 
         
-        mock_queue.enqueue.assert_called_once_with(convertVideos, new_video)
+        mock_queue.enqueue.assert_called_once_with(convertVideos, new_video, job_timeout=1200)
+
         
 
 class VideoTests(TestCase):
