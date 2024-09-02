@@ -26,7 +26,7 @@ ALLOWED_HOSTS = [
 
 # CORS-Einstellungen
 CORS_ALLOWED_ORIGINS = [
-    # 'https://localhost:4200',
+    'http://localhost:4200',
     'https://jan-woll.developerakademie.org',
     'https://videoflix.jan-woll.de'
 ]
