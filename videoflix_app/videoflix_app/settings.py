@@ -28,12 +28,13 @@ ALLOWED_HOSTS = [
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:4200',
     'https://jan-woll.developerakademie.org',
-    'https://videoflix.jan-woll.de'
+    'https://videoflix.jan-woll.de',
+    # 'http://127.0.0.1:8000'
 ]
 
 CORS_ALLOW_CREDENTIALS = True
 
-CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Installierte Apps
 INSTALLED_APPS = [
@@ -176,7 +177,18 @@ DOMAIN_FRONTEND = os.getenv('DOMAIN_FRONTEND', 'https://localhost:4200')
 CSRF_TRUSTED_ORIGINS = [
 'https://videoflix.jan-woll.de',
 'https://jan-woll.developerakademie.org',
+'http://localhost:4200'
+'http://127.0.0.1:8000'
 ]
+
+
+TRUSTED_ORIGINS = [
+'https://videoflix.jan-woll.de',
+'https://jan-woll.developerakademie.org',
+'http://localhost:4200'
+'http://127.0.0.1:8000'
+]
+
 
 # ACCESS_CONTROL_ALLOW_ORIGIN = 'https://videoflix.jan-woll.de','https://jan-woll.developerakademie.org'
 # ACCES_CONTROL_ALLOW_HEADERS = 'Content-Type, Authorization'

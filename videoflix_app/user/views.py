@@ -27,11 +27,17 @@ class RegisterView(APIView):
 
             uid = urlsafe_base64_encode(force_bytes(user.pk))
             token = default_token_generator.make_token(user)
-            confirm_url = f"{settings.DOMAIN_FRONTEND}/confirm-email/{uid}/{token}"
             
+            production_confirm_url = f"{settings.DOMAIN_FRONTEND}/confirm-email/{uid}/{token}"
+            
+
+            local_confirm_url = f"http://localhost:4200/confirm-email/{uid}/{token}"
+
             send_mail(
                 'Bestätigen Sie Ihre E-Mail-Adresse',
-                f'Bitte klicken Sie auf den folgenden Link, um Ihre E-Mail-Adresse zu bestätigen: {confirm_url}',
+                f'Bitte klicken Sie auf einen der folgenden Links, um Ihre E-Mail-Adresse zu bestätigen:\n\n'
+                f'Produktionsumgebung: {production_confirm_url}\n'
+                f'Lokale Entwicklungsumgebung: {local_confirm_url}',
                 settings.DEFAULT_FROM_EMAIL,
                 [user.email],
                 fail_silently=False,
@@ -39,6 +45,7 @@ class RegisterView(APIView):
             return Response({'message': 'Eine Bestätigungs-E-Mail wurde gesendet. Bitte überprüfen Sie Ihr Postfach.'}, status=status.HTTP_201_CREATED)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 
 
 class LoginView(APIView):
